@@ -12,7 +12,8 @@ website_bodytext_scraper/
 │   └── output.csv              # Example output file with scraped data
 │
 ├── spiders/                    # Directory containing Scrapy spiders
-│   └── bodytext_spider.py      # Spider to scrape body text from websites
+│   ├── bodytext_spider.py      # Spider to scrape body text from websites
+│   └── check_urls_spider.py    # Spider to check the status of URLs
 │
 ├── items.py                    # Scrapy items definition
 ├── middlewares.py              # Scrapy middlewares
@@ -45,15 +46,29 @@ website_bodytext_scraper/
 1. **Input**:
    - Update the `data/inputs.csv` file with the list of URLs you want to scrape. Each URL should be on a new line.
 
-2. **Run the Spider**:
+2. **Run the Body Text Spider**:
    - From the root directory, run the following command:
      ```
      scrapy crawl bodytext
      ```
    - The scraped data will be saved to the specified output location (e.g., `data/output.csv`).
 
-3. **Review the Results**:
-   - Check the output file (e.g., `data/output.csv`) to see the scraped body text from each URL.
+3. **Run the URL Check Spider**:
+   - Ensure you have a CSV file with URLs under the 'WbstAddrssTxt' column.
+   - From the root directory, run the following command:
+     ```
+     scrapy runspider website_bodytext_scraper/spiders/check_urls_spider.py -o results.csv
+     ```
+   - The results will be saved to `results.csv` with details about each URL's status and duplicates.
+
+4. **Delete All `__pycache__` Folders**:
+   - To remove all `__pycache__` directories from the repository, run the `delete_pycache.sh` script:
+     ```
+     ./delete_pycache.sh
+     ```
+
+5. **Review the Results**:
+   - Check the output file (e.g., `data/output.csv` or `results.csv`) to see the scraped body text or URL check results from each URL.
 
 ## Customization
 
