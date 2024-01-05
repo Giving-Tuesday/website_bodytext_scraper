@@ -43,32 +43,33 @@ website_bodytext_scraper/
 
 ## Usage
 
-1. **Input**:
+### Testing URLs before scraping
    - Update the `data/inputs.csv` file with the list of URLs you want to scrape. Each URL should be on a new line.
-
-2. **Run the Body Text Spider**:
    - From the root directory, run the following command:
      ```
      scrapy crawl bodytext
      ```
    - The scraped data will be saved to the specified output location (e.g., `data/output.csv`).
 
-3. **Run the URL Check Spider**:
+### Running the bodytext scraper
    - Ensure you have a CSV file with URLs under the 'WbstAddrssTxt' column.
    - From the root directory, run the following command:
      ```
      scrapy runspider website_bodytext_scraper/spiders/check_urls_spider.py -o results.csv
      ```
    - The results will be saved to `results.csv` with details about each URL's status and duplicates.
+   - Check the output file (e.g., `data/output.csv` or `results.csv`) to see the scraped body text or URL check results from each URL.
 
-4. **Delete All `__pycache__` Folders**:
+
+### In development: Page traversal
+- A script is in development to traverse through all pages found in the website's navbar to save the content from them too
+
+### Cleanup utilities
+ **Delete All `__pycache__` Folders**:
    - To remove all `__pycache__` directories from the repository, run the `delete_pycache.sh` script:
      ```
      ./delete_pycache.sh
      ```
-
-5. **Review the Results**:
-   - Check the output file (e.g., `data/output.csv` or `results.csv`) to see the scraped body text or URL check results from each URL.
 
 ## Customization
 
