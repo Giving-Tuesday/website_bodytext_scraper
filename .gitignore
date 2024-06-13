@@ -63,7 +63,7 @@ instance/
 .webassets-cache
 
 # Scrapy stuff:
-*.csv
+# .csv
 *.json
 *.xml
 *.jl
@@ -130,3 +130,4 @@ cython_debug/
 exploration.ipynb
 scratch/
 ywspvykynpfq6t2_domains.csv
+.DS_Store

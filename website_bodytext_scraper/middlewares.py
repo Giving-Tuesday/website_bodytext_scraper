@@ -76,7 +76,7 @@ class MlBodytextScraperDownloaderMiddleware:
 
         if request.meta['allowed_domain'] not in domain:
             raise IgnoreRequest("Filtered non-allowed domain")
-        
+
         # Called for each request that goes through the downloader
         # middleware.
 

@@ -15,17 +15,18 @@ SPIDER_MODULES = ["website_bodytext_scraper.spiders"]
 NEWSPIDER_MODULE = "website_bodytext_scraper.spiders"
 
 FEEDS = {
-        'bodytext_results.csv': {
-            'format': 'csv',
-            'encoding': 'utf8',
-            'store_empty': False,
-            'fields': ['url', 'page_traversed', 'body_text']
-        }
+    'bodytext_results.csv': {
+        'format': 'csv',
+        'encoding': 'utf8',
+        'store_empty': False,
+        'fields': ['url', 'page_traversed', 'body_text']
     }
+}
 
 OUTPUT_FILE = 'website_bodytext_scraper/bodytext_results.csv'
 
-IS_OUTPUT_EMPTY = not os.path.exists(OUTPUT_FILE) or os.path.getsize(OUTPUT_FILE) == 0
+IS_OUTPUT_EMPTY = not os.path.exists(
+    OUTPUT_FILE) or os.path.getsize(OUTPUT_FILE) == 0
 
 # Conditionally set the fields to export
 if IS_OUTPUT_EMPTY:
@@ -58,34 +59,34 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
+# DEFAULT_REQUEST_HEADERS = {
 #    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 #    "Accept-Language": "en",
-#}
+# }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    "website_bodytext_scraper.middlewares.MlBodytextScraperSpiderMiddleware": 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    "website_bodytext_scraper.middlewares.MlBodytextScraperDownloaderMiddleware": 543,
-#}
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
+# EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
-#}
+# }
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+# ITEM_PIPELINES = {
 #    "website_bodytext_scraper.pipelines.MlBodytextScraperPipeline": 300,
-#}
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -101,7 +102,8 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 #AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
+# See
+# https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
 HTTPCACHE_ENABLED = True
 # HTTPCACHE_ENABLED = False
 #HTTPCACHE_EXPIRATION_SECS = 0
