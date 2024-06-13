@@ -4,6 +4,8 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.exceptions import IgnoreRequest
+from urllib.parse import urlparse
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -69,6 +71,12 @@ class MlBodytextScraperDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
+        parsed_url = urlparse(request.url)
+        domain = parsed_url.netloc
+
+        if request.meta['allowed_domain'] not in domain:
+            raise IgnoreRequest("Filtered non-allowed domain")
+        
         # Called for each request that goes through the downloader
         # middleware.
 

@@ -6,7 +6,8 @@
 import scrapy
 
 
-class MlBodytextScraperItem(scrapy.Item):
+class BodyTextCrawlSpiderItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    url = scrapy.Field()
+    page_traversed = scrapy.Field()
+    body_text = scrapy.Field()

@@ -14,17 +14,16 @@ BOT_NAME = "website_bodytext_scraper"
 SPIDER_MODULES = ["website_bodytext_scraper.spiders"]
 NEWSPIDER_MODULE = "website_bodytext_scraper.spiders"
 
-
 FEEDS = {
-    'website_bodytext_scraper/data/output.csv': {
-        'format': 'csv',
-        'encoding': 'utf8',
-        'store_empty': False,
-        'fields': ['url', 'body_text'],
-    },
-}
+        'bodytext_results.csv': {
+            'format': 'csv',
+            'encoding': 'utf8',
+            'store_empty': False,
+            'fields': ['url', 'page_traversed', 'body_text']
+        }
+    }
 
-OUTPUT_FILE = 'website_bodytext_scraper/data/output.csv'
+OUTPUT_FILE = 'website_bodytext_scraper/bodytext_results.csv'
 
 IS_OUTPUT_EMPTY = not os.path.exists(OUTPUT_FILE) or os.path.getsize(OUTPUT_FILE) == 0
 
@@ -103,7 +102,8 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
+HTTPCACHE_ENABLED = True
+# HTTPCACHE_ENABLED = False
 #HTTPCACHE_EXPIRATION_SECS = 0
 #HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []

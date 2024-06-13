@@ -1,25 +1,32 @@
 # Website Text Scraper
 
-This repository contains a Scrapy project named `website_bodytext_scraper` designed to scrape the body text from a list of websites. The list of websites is provided via a CSV file, and the scraped data is saved in a specified output format.
+This repository contains a Scrapy project named `website_bodytext_scraper` designed to scrape the body text from a list of websites. It works by accepting a list of websites is provided through a CSV file, scraping the body text of each site's home page and associated sub-pages, and saves the data in a specified output format. It's designed to provide the user with the raw body text of a website's homepage and associated subpages, which can be used as inputs for AI applications, among other uses.
+
 
 ## Directory Structure
 
 ```
-website_bodytext_scraper/
-│
-├── data/                       # Directory containing input and output data
-│   ├── inputs.csv              # Primary input file with list of URLs to scrape
-│   └── output.csv              # Example output file with scraped data
-│
-├── spiders/                    # Directory containing Scrapy spiders
-│   ├── bodytext_spider.py      # Spider to scrape body text from websites
-│   └── check_urls_spider.py    # Spider to check the status of URLs
-│
-├── items.py                    # Scrapy items definition
-├── middlewares.py              # Scrapy middlewares
-├── pipelines.py                # Scrapy item pipelines
-├── settings.py                 # Scrapy project settings
-└── scrapy.cfg                  # Scrapy configuration file
+.
+├── README.md
+├── inputs.csv
+├── requirements.txt
+├── scrapy.cfg
+├── test.json
+└── website_bodytext_scraper
+    ├── data
+    │   └── url_check_output
+    ├── example
+    │   └── example_inputs.csv
+    ├── items.py
+    ├── middlewares.py
+    ├── pipelines.py
+    ├── settings.py
+    └── spiders
+        ├── __init__.py
+        ├── bodytext_crawl_spider.py
+        ├── check_urls_spider.py
+        └── utils.py
+
 ```
 
 ## Setup
@@ -43,35 +50,49 @@ website_bodytext_scraper/
 
 ## Usage
 
-### Testing URLs before scraping
-   - Update the `data/inputs.csv` file with the list of URLs you want to scrape. Each URL should be on a new line.
+Two steps must be performed for best results. First, the list of URLs provided is checked to ensure a successful scrape can be performed on the website by checking for a 200 HTTP status code, and rendering a report on the responses for all URLs tried. This step renders a new list of websites with a high chance of success. In the second step, this new list is used to perform the scrape and process the data into a final CSV. 
+
+### 1. Testing URLs before scraping
+
+   - Update the `inputs.csv` file at the root level with the list of URLs you want to scrape. Each URL should be on a new line, and the header must not be changed from "url".
    - From the root directory, run the following command:
      ```
-     scrapy crawl bodytext
+     scrapy crawl check_urls
      ```
-   - The scraped data will be saved to the specified output location (e.g., `data/output.csv`).
+   - The spider outputs two files:
+      - website_bodytext_scraper/data/url_check_output/results.csv: This contains a full report of all URLs tried and their results 
+      - website_bodytext_scraper/data/url_check_output/bodytext_inputs.csv: A clean list of all the successful connections formatted to be ingersted by the bodytext scraper. This file will be automatically used by the scarper, no action is required to configure it.
+      
 
-### Running the bodytext scraper
-   - Ensure you have a CSV file with URLs under the 'WbstAddrssTxt' column.
+### 2. Running the bodytext scraper
+   - Ensure you have run the preceding step and a `data/url_check_output/bodytext_inputs.csv` has appeared and contains data
    - From the root directory, run the following command:
      ```
-     scrapy runspider website_bodytext_scraper/spiders/check_urls_spider.py -o results.csv
+     scrapy crawl bodytext_crawl
      ```
-   - The results will be saved to `results.csv` with details about each URL's status and duplicates.
-   - Check the output file (e.g., `data/output.csv` or `results.csv`) to see the scraped body text or URL check results from each URL.
+   - The results will be saved to `bodytext_results.csv` with the page's body text as a text blob in the 'body_text' field
+
+## Example
+
+To test out the scraper before using it for your project, a sample CSV of URLs is included. It's deliberately messy to mimic an imperfect data extraction process, to demonstrate the scraper's ability to check and clean all domains before scraping the websites themselves.
+
+To try it out:
+- Copy the contexts of `website_bodytext_scraper/example/example_inputs.csv` into `website_bodytext_scraper/inputs.csv`. 
+- Run `scrapy crawl check_urls`
+- In `website_bodytext_scraper/data/url_check_output`, two new CSVs should appear:
+   - 'results.csv' contains a full report of the status of all URLs in the input file
+   - 'bodytext_inputs.csv' is a clean list of all successfully pinged URLs, normalized to a standard structure. 
+- Now run `scrapy crawl bodytext`
+- A bodytext_results.csv file will appear at the root level with the results of the scrape
 
 
-### In development: Page traversal
-- A script is in development to traverse through all pages found in the website's navbar to save the content from them too
+## Development
 
-### Cleanup utilities
- **Delete All `__pycache__` Folders**:
-   - To remove all `__pycache__` directories from the repository, run the `delete_pycache.sh` script:
-     ```
-     ./delete_pycache.sh
-     ```
-
-## Customization
+### Customization
 
 - To modify the output format or location, adjust the `FEEDS` setting in `settings.py`.
-- To add more spiders or modify the existing spider, navigate to the `spiders/` directory.
+- To add more or modify existing spiders, navigate to the `spiders/` directory.
+
+### Future Development
+
+We would love to hear your thoughts on how to improve this repo! Contact ___@givingtuesday.org with your ideas.

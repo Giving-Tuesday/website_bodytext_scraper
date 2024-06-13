@@ -1,68 +1,110 @@
 import scrapy
+import csv
+import os
 import pandas as pd
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 from collections import Counter
+from .utils import load_urls_from_csv, clean_url, add_http
+from scrapy.http import Request
+from scrapy.spidermiddlewares.httperror import HttpError
+from twisted.internet.error import DNSLookupError, TimeoutError, TCPTimedOutError
+from scrapy.exceptions import IgnoreRequest
 
 class CheckURLsSpider(scrapy.Spider):
     name = 'check_urls'
+    handle_httpstatus_all = True
+    output_dir = 'website_bodytext_scraper/data/url_check_output' 
 
-    handle_httpstatus_list = [404, 500, 403, 400, 408, 429, 502, 503, 504, 522, 524]  # Add any other status you want to handle
-    
-    @staticmethod
-    def extract_domain(url):
-        parsed_url = urlparse(url)
-        return parsed_url.netloc
+    def __init__(self, input_file=None, *args, **kwargs):
+        super(CheckURLsSpider, self).__init__(*args, **kwargs)
+        # Set up start_urls
+        self.file_path = 'inputs.csv'
+        self.column_index = 0 # Selects the first column of the CSV
 
-    @staticmethod
-    def find_duplicate_domains(urls):
-        domains = [CheckURLsSpider.extract_domain(url) for url in urls]
-        domain_counts = Counter(domains)
-        duplicate_domains = [domain for domain, count in domain_counts.items() if count > 1]
-        return duplicate_domains
+        # Set up counters
+        self.urls_checked = 0
+        # self.duplicate_domains = []
+        self.urls_checked = 0
+        self.live_sites = 0
 
-    @staticmethod
-    def clean_url(url, default_scheme='http', add_www=True):
-        if 'https//' in url:
-            url = url.replace('https//', 'https://')
-        elif 'http//' in url:
-            url = url.replace('http//', 'http://')
-        parsed_url = urlparse(url)
-        scheme = parsed_url.scheme if parsed_url.scheme else default_scheme
-        netloc = parsed_url.netloc or parsed_url.path
-        path = ''
-        if not parsed_url.netloc and add_www and '.' in netloc and not netloc.startswith('www.'):
-            netloc = 'www.' + netloc
-        netloc = netloc.lower()
-        cleaned_url = urlunparse((scheme, netloc, path, parsed_url.params, parsed_url.query, parsed_url.fragment))
-        return cleaned_url
-    
+        # # Set up analysis results CSV params
+        self.results_csv_path = os.path.join(self.output_dir, 'results.csv')
+        self.results_csv_file = open(self.results_csv_path, 'w', newline='')
+        self.results_csv_writer = csv.writer(self.results_csv_file)
+        self.results_csv_writer.writerow(['url', 'http_status','reason'])
+        
+         # Set up bodytext input CSV params
+        self.bodytext_csv_path = os.path.join(self.output_dir, 'bodytext_inputs.csv')
+        self.bodytext_csv_file = open(self.bodytext_csv_path, 'w', newline='')
+        self.bodytext_csv_writer = csv.writer(self.bodytext_csv_file)
+        self.bodytext_csv_writer.writerow(['url'])
+
+
+    def process_urls(self, input_csv):
+        urls = load_urls_from_csv(input_csv, column_index=0)
+        cleaned_domains, _ = clean_url(urls)
+
+        return cleaned_domains
+
     def start_requests(self):
-        input_file = '/Users/brittany/repos/gt-scraper/website_bodytext_scraper/website_bodytext_scraper/data/test_urls.csv'
-        df = pd.read_csv(input_file)
-        sample_urls = df['WbstAddrssTxt'].tolist()
-        cleaned_urls = [self.clean_url(url) for url in sample_urls]
-        self.duplicate_domains = self.find_duplicate_domains(cleaned_urls)
-        for url in cleaned_urls:  
+        allowed_domains = self.process_urls(self.file_path)
+        urls = [add_http(domain) if isinstance(domain, str) else domain for domain in allowed_domains]
+
+        for url in urls:
+            self.urls_checked += 1
             yield scrapy.Request(url, method='HEAD', callback=self.parse_head, errback=self.parse_error)
+
         
     def parse_head(self, response):
-        yield {
-            'url': response.url,
-            'is_live': response.status == 200,
-            'is_duplicate': response.url in self.duplicate_domains,
-            'http_status': response.status
-        }
+        is_live = response.status == 200,
+
+        if is_live:
+            self.live_sites +=1
+            self.bodytext_csv_writer.writerow([response.url])
+
+        self.results_csv_writer.writerow([
+            response.url, 
+            response.status, 
+            'Successful connection'
+        ])
 
     def parse_error(self, failure):
         # log all failures
-        self.logger.error(repr(failure))
-        
-        # Getting the URL from the failure request
-        url_failed = failure.request.url
-        
-        yield {
-            'url': url_failed,
-            'is_live': False,
-            'is_duplicate': url_failed in self.duplicate_domains,
-            'http_status': 'Error/Failed'
-        }
+        # self.logger.error(repr(failure))
+
+        url = failure.request.url
+        if failure.check(HttpError):
+            response = failure.value.response
+            http_status = response.status
+            reason = 'HTTP error'
+            self.logger.error(f'HTTP error on {response.url}: {response.status}')
+        elif failure.check(DNSLookupError):
+            http_status = 'N/A'
+            reason = 'DNS lookup error'
+            self.logger.error(f'DNS lookup error on {failure.request.url}')
+        elif failure.check(TimeoutError, TCPTimedOutError):
+            http_status = 'N/A'
+            reason = 'Timeout error'
+            self.logger.error(f'Timeout error on {failure.request.url}')
+        elif failure.check(IgnoreRequest):
+            http_status = 'N/A'
+            reason = 'Forbidden by robots.txt'
+            self.logger.info(f'Request ignored on {url} due to robots.txt')
+        else:
+            http_status = 'N/A'
+            reason = repr(failure)
+            self.logger.error(f'Non-HTTP error on {failure.request.url}: {repr(failure)}')
+
+        self.results_csv_writer.writerow([url, http_status, reason])
+
+
+    def closed(self, reason):
+        self.results_csv_file.close()
+        self.bodytext_csv_file.close()
+        self.log_summary_stats()
+
+    def log_summary_stats(self):
+        live_site_rate = (self.live_sites / self.urls_checked) * 100 if self.urls_checked > 0 else 0
+
+        self.logger.info(f'Websites scraped: {self.urls_checked}')
+        self.logger.info(f'Live site rate: {live_site_rate:.2f}%')
