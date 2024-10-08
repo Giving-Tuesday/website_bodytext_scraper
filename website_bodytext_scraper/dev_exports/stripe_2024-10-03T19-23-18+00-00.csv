@@ -1,0 +1,109 @@
+url,success,stripe_detected,stripe_code,error_code
+https://www.abcap.net/donate.html,True,False,,
+https://abcinc.org/donate/,True,True,"<link rel=""stylesheet"" id=""stripe-checkout-button-css"" href=""https://checkout.stripe.com/v3/checkout/button.css"" media=""all"">,<div id=""simpay-stripe_checkout-form-wrap-4013"" data-id=""simpay-form-4013-wrap"" class=""simpay-form-wrap simpay-stripe_checkout-form-wrap""><form action="""" method=""post"" class=""simpay-checkout-form simpay-form-4013 simpay-checkout-form--stripe_checkout"" id=""simpay-form-4013"" data-simpay-form-id=""4013"">
+		<fieldset class=""simpay-form-control simpay-plan-select-container"" data-display-type=""radio"" style=""display: block"">
+			<div class=""simpay-plan_select-label simpay-label-wrap"">
+				<legend class="""">
+					Choose monthly donation amount:				</legend>
+			</div>
+
+			<div class=""simpay-plan-wrapper simpay-field-wrap simpay-dropdown-wrap"">
+				<ul class=""simpay-multi-plan-radio-group"">
+									<li class=""simpay-price-selection-label"">
+													<label for=""plan_EtIka9T5jMz2ry-instance-746"">
+							<input type=""radio"" id=""plan_EtIka9T5jMz2ry-instance-746"" class=""simpay-multi-sub simpay-price-option-plan_EtIka9T5jMz2ry"" data-price='{""instance_id"":""0"",""product_id"":""prod_L7YUICLrlUf6T1"",""id"":""plan_EtIka9T5jMz2ry"",""default"":false,""label"":""$20 per month"",""currency"":""usd"",""currency_symbol"":""$"",""is_zero_decimal"":false,""unit_amount"":2000,""unit_amount_min"":null,""can_recur"":false,""recurring"":{""interval"":""month"",""interval_count"":1},""line_items"":null,""quantity_toggle"":null,""quantity_label"":null,""quantity_minimum"":null,""quantity_maximum"":null,""recurring_amount_toggle_label"":null,""generated_label"":""$20.00 every 1 month"",""simplified_label"":""$20 per month"",""currency_min_amount"":100}' name=""simpay_price"" value=""plan_EtIka9T5jMz2ry"" data-plan-id=""plan_EtIka9T5jMz2ry"" data-plan-amount=""20"" data-plan-setup-fee="""" data-plan-interval=""month"" data-plan-interval-count=""1"" data-plan-max-charges=""0"" data-plan-trial="""">
+							$20 per month						</label>
+											</li>
+									<li class=""simpay-price-selection-label"">
+													<label for=""plan_EtIkgdQkpAO7fA-instance-638"">
+							<input type=""radio"" id=""plan_EtIkgdQkpAO7fA-instance-638"" class=""simpay-multi-sub simpay-price-option-plan_EtIkgdQkpAO7fA"" data-price='{""instance_id"":""1"",""product_id"":""prod_L7YUICLrlUf6T1"",""id"":""plan_EtIkgdQkpAO7fA"",""default"":true,""label"":""$50 per month"",""currency"":""usd"",""currency_symbol"":""$"",""is_zero_decimal"":false,""unit_amount"":5000,""unit_amount_min"":null,""can_recur"":false,""recurring"":{""interval"":""month"",""interval_count"":1},""line_items"":null,""quantity_toggle"":null,""quantity_label"":null,""quantity_minimum"":null,""quantity_maximum"":null,""recurring_amount_toggle_label"":null,""generated_label"":""$50.00 every 1 month"",""simplified_label"":""$50 per month"",""currency_min_amount"":100}' name=""simpay_price"" checked value=""plan_EtIkgdQkpAO7fA"" data-plan-id=""plan_EtIkgdQkpAO7fA"" data-plan-amount=""50"" data-plan-setup-fee="""" data-plan-interval=""month"" data-plan-interval-count=""1"" data-plan-max-charges=""0"" data-plan-trial="""">
+							$50 per month						</label>
+											</li>
+									<li class=""simpay-price-selection-label"">
+													<label for=""plan_EtIkDnTpTtGJaR-instance-144"">
+							<input type=""radio"" id=""plan_EtIkDnTpTtGJaR-instance-144"" class=""simpay-multi-sub simpay-price-option-plan_EtIkDnTpTtGJaR"" data-price='{""instance_id"":""2"",""product_id"":""prod_L7YUICLrlUf6T1"",""id"":""plan_EtIkDnTpTtGJaR"",""default"":false,""label"":""$100 per month"",""currency"":""usd"",""currency_symbol"":""$"",""is_zero_decimal"":false,""unit_amount"":10000,""unit_amount_min"":null,""can_recur"":false,""recurring"":{""interval"":""month"",""interval_count"":1},""line_items"":null,""quantity_toggle"":null,""quantity_label"":null,""quantity_minimum"":null,""quantity_maximum"":null,""recurring_amount_toggle_label"":null,""generated_label"":""$100.00 every 1 month"",""simplified_label"":""$100 per month"",""currency_min_amount"":100}' name=""simpay_price"" value=""plan_EtIkDnTpTtGJaR"" data-plan-id=""plan_EtIkDnTpTtGJaR"" data-plan-amount=""100"" data-plan-setup-fee="""" data-plan-interval=""month"" data-plan-interval-count=""1"" data-plan-max-charges=""0"" data-plan-trial="""">
+							$100 per month						</label>
+											</li>
+									<li class=""simpay-price-selection-label"">
+													<label for=""simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85-instance-809"">
+							<input type=""radio"" id=""simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85-instance-809"" class=""simpay-multi-sub simpay-price-option-simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85"" data-price='{""instance_id"":""3"",""product_id"":""prod_L7YUICLrlUf6T1"",""id"":""simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85"",""default"":false,""label"":""Custom amount per month"",""currency"":""usd"",""currency_symbol"":""$"",""is_zero_decimal"":false,""unit_amount"":100,""unit_amount_min"":100,""can_recur"":false,""recurring"":{""interval"":""month"",""interval_count"":1},""line_items"":null,""quantity_toggle"":null,""quantity_label"":null,""quantity_minimum"":null,""quantity_maximum"":null,""recurring_amount_toggle_label"":null,""generated_label"":""starting at $1.00 every 1 month"",""simplified_label"":""Custom amount per month"",""currency_min_amount"":100}' name=""simpay_price"" value=""simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85"" data-plan-id=""simpay_4c9735ea-f623-4182-8a1e-f8c4d15e0d85"" data-plan-amount=""1"" data-plan-setup-fee="""" data-plan-interval=""month"" data-plan-interval-count=""1"" data-plan-max-charges=""0"" data-plan-trial="""">
+							Custom amount per month						</label>
+											</li>
+								</ul>
+			</div>
+		</fieldset>
+
+		
+		
+		<div class=""
+							simpay-form-control
+							simpay-custom-amount-container"" style=""display: none;"">
+			
+		<div class=""simpay-custom_amount-label simpay-label-wrap"">
+			<label for=""simpay-form-4013-field-2"" class="""">
+				Custom Amount							</label>
+		</div>
+
+					<div class=""simpay-custom-amount-wrap simpay-field-wrap"">
+				<span class=""simpay-currency-symbol simpay-currency-symbol-left"">$</span>				<input type=""tel"" name=""simpay_custom_price_amount"" id=""simpay-form-4013-field-2"" placeholder="""" class=""simpay-amount-input simpay-custom-amount-input simpay-custom-amount-input-symbol-left"" data-prefill-default="""" data-placeholder="""">
+							</div>
+			<div class=""simpay-errors simpay-custom-amount-error"" aria-live=""assertive"" aria-relevant=""additions text"" aria-atomic=""true""></div>
+		</div>
+
+		
+		<div class=""simpay-form-control""><button id=""simpay-4013-payment-button"" class=""simpay-btn simpay-payment-btn simpay-disabled stripe-button-el"" disabled><span>Start Monthly Support</span></button></div><div class=""simpay-generic-error simpay-errors"" id=""simpay-form-4013-error"" aria-live=""assertive"" aria-relevant=""additions text"" aria-atomic=""true""></div><input type=""hidden"" name=""simpay_form_id"" value=""4013""><input type=""hidden"" name=""simpay_amount"" value="""" class=""simpay-amount""><input type=""hidden"" name=""simpay_multi_plan_id"" value="""" class=""simpay-multi-plan-id""><input type=""hidden"" name=""simpay_multi_plan_setup_fee"" value="""" class=""simpay-multi-plan-setup-fee""><input type=""hidden"" name=""simpay_max_charges"" value="""" class=""simpay-max-charges""><input type=""hidden"" name=""simpay_has_custom_plan"" class=""simpay-has-custom-plan"" value=""""><input type=""hidden"" name=""simpay_tax_amount"" value="""" class=""simpay-tax-amount""><input type=""hidden"" id=""_wpnonce"" name=""_wpnonce"" value=""85853a101d""><input type=""hidden"" name=""_wp_http_referer"" value=""/donate/""></form></div>,<div id=""simpay-stripe_checkout-form-wrap-4102"" data-id=""simpay-form-4102-wrap"" class=""simpay-form-wrap simpay-stripe_checkout-form-wrap""><form action="""" method=""post"" class=""simpay-checkout-form simpay-form-4102 simpay-styled simpay-checkout-form--stripe_checkout simpay-checkout-form--stripe_checkout-styled"" id=""simpay-form-4102"" data-simpay-form-id=""4102"">
+		<fieldset class=""simpay-form-control simpay-plan-select-container"" data-display-type=""radio"" style=""display: none"">
+			<div class=""simpay-plan_select-label simpay-label-wrap"">
+				<legend class="""">
+					Choose an amount				</legend>
+			</div>
+
+			<div class=""simpay-plan-wrapper simpay-field-wrap simpay-dropdown-wrap"">
+				<ul class=""simpay-multi-plan-radio-group"">
+									<li class=""simpay-price-selection-label"">
+													<label for=""simpay_64be5d49-f2d7-4134-a3d6-a8697a781338-instance-887"">
+							<input type=""radio"" id=""simpay_64be5d49-f2d7-4134-a3d6-a8697a781338-instance-887"" class=""simpay-multi-sub simpay-price-option-simpay_64be5d49-f2d7-4134-a3d6-a8697a781338"" data-price='{""instance_id"":""0"",""product_id"":""prod_L7YUTtwLUpca8h"",""id"":""simpay_64be5d49-f2d7-4134-a3d6-a8697a781338"",""default"":true,""label"":""Amount"",""currency"":""usd"",""currency_symbol"":""$"",""is_zero_decimal"":false,""unit_amount"":100,""unit_amount_min"":""100"",""can_recur"":false,""recurring"":null,""line_items"":null,""quantity_toggle"":null,""quantity_label"":null,""quantity_minimum"":null,""quantity_maximum"":null,""recurring_amount_toggle_label"":null,""generated_label"":""starting at $1.00"",""simplified_label"":""Amount"",""currency_min_amount"":100}' name=""simpay_price"" checked value=""simpay_64be5d49-f2d7-4134-a3d6-a8697a781338"" data-plan-id=""simpay_64be5d49-f2d7-4134-a3d6-a8697a781338"" data-plan-amount=""1"">
+							Amount						</label>
+											</li>
+								</ul>
+			</div>
+		</fieldset>
+
+		
+		
+		<div class=""
+							simpay-form-control
+							simpay-custom-amount-container"">
+			
+		<div class=""simpay-custom_amount-label simpay-label-wrap"">
+			<label for=""simpay-form-4102-field-5"" class="""">
+				Amount							</label>
+		</div>
+
+					<div class=""simpay-custom-amount-wrap simpay-field-wrap"">
+				<span class=""simpay-currency-symbol simpay-currency-symbol-left"">$</span>				<input type=""tel"" name=""simpay_custom_price_amount"" id=""simpay-form-4102-field-5"" placeholder="""" class=""simpay-amount-input simpay-custom-amount-input simpay-custom-amount-input-symbol-left"" data-prefill-default="""" data-placeholder="""">
+							</div>
+			<div class=""simpay-errors simpay-custom-amount-error"" aria-live=""assertive"" aria-relevant=""additions text"" aria-atomic=""true""></div>
+		</div>
+
+		
+		<div class=""simpay-form-control""><button id=""simpay-4102-payment-button"" class=""simpay-btn simpay-payment-btn simpay-disabled stripe-button-el"" disabled><span>Donate Now</span></button></div><div class=""simpay-generic-error simpay-errors"" id=""simpay-form-4102-error"" aria-live=""assertive"" aria-relevant=""additions text"" aria-atomic=""true""></div><input type=""hidden"" name=""simpay_form_id"" value=""4102""><input type=""hidden"" name=""simpay_amount"" value="""" class=""simpay-amount""><input type=""hidden"" name=""simpay_tax_amount"" value="""" class=""simpay-tax-amount""><input type=""hidden"" id=""_wpnonce"" name=""_wpnonce"" value=""85853a101d""><input type=""hidden"" name=""_wp_http_referer"" value=""/donate/""></form></div>",
+https://www.paypal.com/paypalme/LifeCenterVenangoCo,True,False,,
+https://www.abetterinternet.org/donate/,True,False,,
+https://secure.qgiv.com/for/4adfu8,True,False,,
+https://able-inc.org/donate/,True,False,,
+https://secure.everyaction.com/7NqPPSxbgkWuJaBjNSV8PQ2,True,False,,
+https://aboutcare.org/donations/,True,False,,
+https://acapnj.org/give/,True,False,,
+https://www.paypal.com/donate/?hosted_button_id=D466PX9JA63DW,True,False,,
+https://acc-ef.org/foundation/donate/donate-now.html,True,False,,
+https://www.access-psychology.org/donate/,True,False,,
+https://www.paypal.com/donate?hosted_button_id=ZEZYGDYKVQ64G,True,False,,
+https://secure.anedot.com/michigan-center-of-accountability-for-republicans/donate,False,,,<twisted.python.failure.Failure scrapy.spidermiddlewares.httperror.HttpError: Ignoring non-200 response>
+https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=LLYGMECLBHDYE&source=url&ssrt=1727721996964,False,,,<twisted.python.failure.Failure scrapy.exceptions.IgnoreRequest: Forbidden by robots.txt>
+https://secure.lglforms.com/form_engine/s/dSiQp1WQBE6HaviNjjVzMg,True,False,,
+https://donorbox.org/american-council-of-engineering-companies-of-arizona-pac?utm_medium=qrcode&utm_source=qrcode,True,False,,
+https://aciint.org/giving/online-giving/,True,False,,
+https://acornclinic.org/donate/,True,False,,
+https://acpmp.org/get-involved/donate/,False,,,<twisted.python.failure.Failure scrapy.spidermiddlewares.httperror.HttpError: Ignoring non-200 response>
+https://www.abgf.org/donate,False,,,<twisted.python.failure.Failure twisted.internet.error.TCPTimedOutError: TCP connection timed out: 60: Operation timed out.>
