@@ -5,6 +5,7 @@ from scrapy.spiders import Rule
 from website_bodytext_scraper.spiders.utils import generate_directory
 # from website_bodytext_scraper.spiders.constants import manual_donation_pages_urls
 import logging
+from twisted.internet.error import ConnectionRefusedError
 
 manual_donation_pages_urls = [
     'https://www.abcap.net/donate.html',
@@ -105,8 +106,6 @@ class DetectStripeSpider(scrapy.Spider):
             scrape = response.css(selector).getall()
             snippets.extend(scrape)
 
-        # stripe_detected = bool(snippets)
-
         yield {
                 "url": response.url,
                 "success": True,
@@ -117,7 +116,12 @@ class DetectStripeSpider(scrapy.Spider):
         
     def parse_error(self, failure: scrapy.spidermiddlewares.httperror.HttpError):
         url: str = failure.request.url
-        reason = repr(failure)
+        
+        # Custom handling for Twisted errors not handled automatically by Scrapy
+        if failure.check(ConnectionRefusedError):
+            reason = "ConnectionRefusedError: Connection was refused by other side"
+        else:
+            reason = repr(failure.value)  # Fallback to the full error representation
 
         yield {
                 "url": url,

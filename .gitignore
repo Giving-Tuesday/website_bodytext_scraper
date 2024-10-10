@@ -1,5 +1,5 @@
 # Repo-specific scrapes
-stripe_2024*.csv
+*stripe_2024*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
