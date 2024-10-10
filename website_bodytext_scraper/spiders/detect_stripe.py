@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 from scrapy.spiders import Rule
 from website_bodytext_scraper.spiders.utils import generate_directory
 # from website_bodytext_scraper.spiders.constants import manual_donation_pages_urls
+import logging
 
 manual_donation_pages_urls = [
     'https://www.abcap.net/donate.html',
@@ -46,19 +47,17 @@ class DetectStripeSpider(scrapy.Spider):
                 },
             'FEED_EXPORT_FIELDS': ['url', 'success', 'stripe_detected','stripe_code','error_code'],
             # Toggling user a agent on 
-            'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
+            'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
+            # Toggling obey robots.txt
+            # 'ROBOTSTXT_OBEY': False
             }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.export_dir = 'website_bodytext_scraper/dev_exports/'
-        # self.filepath = generate_directory(self.export_dir, 'stripe.csv')
-
         
     def start_requests(self):
         """Start with URLs and rules dynamically set"""
-        # urls = manual_donation_pages_urls
-        urls = ['https://abcinc.org/donate/']
+        urls = manual_donation_pages_urls
     
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse_page, errback=self.parse_error)
@@ -87,39 +86,32 @@ class DetectStripeSpider(scrapy.Spider):
                 errback=self.parse_error)
     
     def parse_page(self, response: scrapy.http.Response):
-        stripe_form = response.css(".asp-stripe-form").getall()
+        selectors = [
+            '.asp-stripe-form',
+            '#wc-stripe-blocks-checkout-style-css',
+            '#stripe-checkout-button-css',
+            '#simpay-stripe_checkout-form-wrap-4013',
+            '#simpay-checkout-form simpay-form-4013 simpay-checkout-form--stripe_checkout',
+            '#simpay-btn simpay-payment-btn simpay-disabled stripe-button-el',
+            '#simpay-stripe_checkout-form-wrap-4102',
+            '#simpay-checkout-form simpay-form-4102 simpay-styled',
+            '#simpay-checkout-form--stripe_checkout simpay-checkout-form--stripe_checkout-styled',
+            '#simpay-btn simpay-payment-btn simpay-disabled stripe-button-el'
+            #TODO: Add Stripe Elements code
+        ]
 
-        # selectors = [
-        #     '.asp-stripe-form',
-        #     '#wc-stripe-blocks-checkout-style-css',
-        #     '#stripe-checkout-button-css',
-        #     '#simpay-stripe_checkout-form-wrap-4013',
-        #     '#simpay-checkout-form simpay-form-4013 simpay-checkout-form--stripe_checkout',
-        #     '#simpay-btn simpay-payment-btn simpay-disabled stripe-button-el',
-        #     '#simpay-stripe_checkout-form-wrap-4102',
-        #     '#simpay-checkout-form simpay-form-4102 simpay-styled',
-        #     '#simpay-checkout-form--stripe_checkout simpay-checkout-form--stripe_checkout-styled',
-        #     '#simpay-btn simpay-payment-btn simpay-disabled stripe-button-el'
-        #     #TODO: Add Stripe Elements code
-        # ]
-
-        # snippets = []
-        # for selector in selectors:
-        #     scrape = response.css(selector).getall()
-        #     snippets.extend(scrape)
-
-        # snippets.extend(response.css(selector).getall())
+        snippets = []
+        for selector in selectors:
+            scrape = response.css(selector).getall()
+            snippets.extend(scrape)
 
         # stripe_detected = bool(snippets)
 
         yield {
                 "url": response.url,
                 "success": True,
-                # "stripe_detected": stripe_detected,
-                "stripe_detected": True if stripe_form else False,
-                # "stripe_detected": True if snippets else False,
-                "stripe_code": stripe_form,
-                # "stripe_code": snippets if snippets else False,
+                "stripe_detected": True if snippets else False,
+                "stripe_code": snippets,
                 "error_code": None
             }
         
