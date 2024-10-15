@@ -81,7 +81,7 @@ class DetectStripeSpider(scrapy.Spider):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.file_path = 'website_bodytext_scraper/data/oct_11_run/bodytext_inputs_test.csv'
+        self.file_path = 'website_bodytext_scraper/data/oct_11_run/bodytext_inputs.csv'
         self.column_index = 0
         
     def start_requests(self):
