@@ -6,6 +6,8 @@ from website_bodytext_scraper.spiders.utils import load_urls_from_csv
 # from website_bodytext_scraper.spiders.constants import manual_donation_pages_urls
 import logging
 from twisted.internet.error import ConnectionRefusedError
+from scrapy.spidermiddlewares.httperror import HttpError
+
 
 manual_donation_pages_urls = [
     'https://www.abcap.net/donate.html',
@@ -167,7 +169,7 @@ class DetectStripeSpider(scrapy.Spider):
             "flags": None
         }
         
-    def parse_error(self, failure: scrapy.spidermiddlewares.httperror.HttpError):
+    def parse_error(self, failure: HttpError):
         url = failure.request.url
         domain = failure.request.meta.get('domain')
 
