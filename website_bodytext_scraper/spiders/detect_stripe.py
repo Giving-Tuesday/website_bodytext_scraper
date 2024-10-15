@@ -60,18 +60,20 @@ initial_urls = [
 
 
 class DetectStripeSpider(scrapy.Spider):
+    def __init__(self, input_path, *args, **kwargs):
+        super(DetectStripeSpider, self).__init__(*args, **kwargs)
+        # Define input path, which is passed to start_requests
+        if input_path is None:
+            raise ValueError("A input_path is required to run detect_stripe spider.")
+        self.input_path = input_path
+        self.column_index = 0
+
     name = "detect_stripe"
     rules = (
         Rule(LinkExtractor(), callback='parse_page', follow=True),
     )
 
     custom_settings = {
-            'FEEDS': { 
-                'website_bodytext_scraper/dev_exports/stripe_%(time)s.csv': { 
-                    'format': 'csv',
-                    'overwrite': True,
-                    }
-                },
             'FEED_EXPORT_FIELDS': ['url', 'domain', 'success', 'stripe_detected','stripe_code','error_code','flags'],
             # Toggling user a agent on 
             'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
@@ -79,16 +81,12 @@ class DetectStripeSpider(scrapy.Spider):
             # 'ROBOTSTXT_OBEY': False
             }
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.file_path = 'website_bodytext_scraper/data/oct_11_run/bodytext_inputs.csv'
-        self.column_index = 0
-        
+
     def start_requests(self):
         """Start with URLs and rules dynamically set"""
         # urls = manual_donation_pages_urls
         # urls = initial_urls
-        urls = load_urls_from_csv(self.file_path, self.column_index)
+        urls = load_urls_from_csv(self.input_path, self.column_index)
     
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse_start_page, errback=self.parse_error)
