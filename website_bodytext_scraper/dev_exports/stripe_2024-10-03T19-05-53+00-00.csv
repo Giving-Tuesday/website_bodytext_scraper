@@ -1,0 +1,22 @@
+url,success,stripe_detected,stripe_code,error_code
+https://www.abcap.net/donate.html,True,False,,
+https://abcinc.org/donate/,True,False,,
+https://www.abetterinternet.org/donate/,True,False,,
+https://able-inc.org/donate/,True,False,,
+https://aboutcare.org/donations/,True,False,,
+https://acapnj.org/give/,True,False,,
+https://www.access-psychology.org/donate/,True,False,,
+https://acornclinic.org/donate/,True,False,,
+https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=LLYGMECLBHDYE&source=url&ssrt=1727721996964,False,,,<twisted.python.failure.Failure scrapy.exceptions.IgnoreRequest: Forbidden by robots.txt>
+https://acpmp.org/get-involved/donate/,False,,,<twisted.python.failure.Failure scrapy.spidermiddlewares.httperror.HttpError: Ignoring non-200 response>
+https://acc-ef.org/foundation/donate/donate-now.html,True,False,,
+https://aciint.org/giving/online-giving/,True,False,,
+https://donorbox.org/american-council-of-engineering-companies-of-arizona-pac?utm_medium=qrcode&utm_source=qrcode,True,False,,
+https://secure.lglforms.com/form_engine/s/dSiQp1WQBE6HaviNjjVzMg,True,False,,
+https://secure.everyaction.com/7NqPPSxbgkWuJaBjNSV8PQ2,True,False,,
+https://secure.anedot.com/michigan-center-of-accountability-for-republicans/donate,False,,,<twisted.python.failure.Failure scrapy.spidermiddlewares.httperror.HttpError: Ignoring non-200 response>
+https://www.paypal.com/paypalme/LifeCenterVenangoCo,True,False,,
+https://secure.qgiv.com/for/4adfu8,True,False,,
+https://www.paypal.com/donate/?hosted_button_id=D466PX9JA63DW,True,False,,
+https://www.paypal.com/donate?hosted_button_id=ZEZYGDYKVQ64G,True,False,,
+https://www.abgf.org/donate,False,,,<twisted.python.failure.Failure twisted.internet.error.TCPTimedOutError: TCP connection timed out: 60: Operation timed out.>
