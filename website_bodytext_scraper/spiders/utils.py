@@ -64,29 +64,3 @@ def add_http(url: str) -> str:
     if not url.startswith(('http://', 'https://')):
         url = 'http://' + url.lower()
     return url
-
-
-from datetime import datetime
-import os 
-from zoneinfo import ZoneInfo
-
-scraper_run_dir = '/Volumes/sandbox_britt/web_scraper/exports'
-
-def create_file():
-    timestamp = datetime.now(tz=ZoneInfo('Canada/Eastern')).strftime("%Y%m%d_%H%M%S")
-    # timestamp = 'Sep 19'
-    run_dir = os.path.join(scraper_run_dir, f'scraper_run_{timestamp}')
-    os.makedirs(run_dir, exist_ok=True)
-    file_path = os.path.join(run_dir, 'test.txt')
-
-    with open(file_path, 'w') as f:
-        f.write('testing')
-
-def generate_directory(export_dir, filename):
-    timestamp = datetime.now(tz=ZoneInfo('Canada/Eastern')).strftime("%Y%m%d_%H%M%S")
-    run_dir = os.path.join(export_dir, f'scraper_run_{timestamp}')
-    os.makedirs(run_dir, exist_ok=True)
-    dir = os.path.join(run_dir, filename)
-    print(f"⚠️ {dir}")
-
-    return dir
