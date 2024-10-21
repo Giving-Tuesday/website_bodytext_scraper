@@ -1,5 +1,6 @@
 # Repo-specific scrapes
 *stripe_2024*.csv
+logs.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
