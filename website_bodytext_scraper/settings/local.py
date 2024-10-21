@@ -3,7 +3,7 @@ from .base import *
 
 # Custom settings
 SCRAPER_ENV='local'
-INPUT_PATH = 'website_bodytext_scraper/data/oct_11_run/bodytext_inputs_test.csv'
+INPUT_PATH = '/home/ubuntu/website_bodytext_scraper/website_bodytext_scraper/data/oct_21_run/bodytext_inputs.csv'
 OUTPUT_PATH = 'exports'
 
 # TODO: Configure S3 settings
