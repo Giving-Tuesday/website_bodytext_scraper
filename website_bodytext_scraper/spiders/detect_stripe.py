@@ -76,7 +76,7 @@ class DetectStripeSpider(scrapy.Spider):
     custom_settings = {
             'FEED_EXPORT_FIELDS': ['url', 'domain', 'success', 'stripe_detected','stripe_code','error_code','flags'],
             # Toggling on batches of 50 to check output while resolving hanging issue
-            'FEED_EXPORT_BATCH_ITEM_COUNT': 50,
+            # 'FEED_EXPORT_BATCH_ITEM_COUNT': 50,
             # Toggling user a agent on 
             'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
             # Toggling obey robots.txt
