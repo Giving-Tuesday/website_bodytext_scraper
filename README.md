@@ -50,6 +50,14 @@ This repository contains a Scrapy project named `website_bodytext_scraper` desig
 
 ## Usage
 
+### UPDATE: run_spider.py
+
+The scraper is currently being updated to use run_spider.py as an entrypoint to make using it on different environments easier. An environment must be used in the command, such as:
+
+`SCRAPY_PROJECT=local python run_spider.py`
+
+----------------------------------------------------
+
 Two steps must be performed for best results. First, the list of URLs provided is checked to ensure a successful scrape can be performed on the website by checking for a 200 HTTP status code, and rendering a report on the responses for all URLs tried. This step renders a new list of websites with a high chance of success. In the second step, this new list is used to perform the scrape and process the data into a final CSV. 
 
 ### 1. Testing URLs before scraping
