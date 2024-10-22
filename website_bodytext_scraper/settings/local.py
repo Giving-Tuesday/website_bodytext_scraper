@@ -5,7 +5,7 @@ from .base import *
 SCRAPER_ENV='local'
 
 # Inputs & outputs
-INPUT_PATH = '/home/ubuntu/website_bodytext_scraper/website_bodytext_scraper/data/oct_21_run/bodytext_inputs.csv'
+INPUT_PATH = '/home/ubuntu/form990_data/full_list/bodytext_inputs.csv'
 OUTPUT_PATH = 'exports'
 
 # Log level
