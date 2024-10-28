@@ -56,6 +56,14 @@ The scraper is currently being updated to use run_spider.py as an entrypoint to 
 
 `SCRAPY_PROJECT=local python run_spider.py`
 
+The following environment variables must be exported to use S3:
+
+```
+AWS_ACCESS_KEY_ID="..."
+AWS_SECRET_ACCESS_KEY="..."
+AWS_SESSION_TOKEN="..."
+```
+
 ----------------------------------------------------
 
 Two steps must be performed for best results. First, the list of URLs provided is checked to ensure a successful scrape can be performed on the website by checking for a 200 HTTP status code, and rendering a report on the responses for all URLs tried. This step renders a new list of websites with a high chance of success. In the second step, this new list is used to perform the scrape and process the data into a final CSV. 

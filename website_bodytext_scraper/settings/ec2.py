@@ -2,19 +2,15 @@ import os
 from .base import *
 
 # Custom settings
-SCRAPER_ENV='test'
+SCRAPER_ENV='ec2'
 
 # Inputs & outputs
-INPUT_PATH = 'website_bodytext_scraper/data/ec2/oct_28_test_set.csv'
-# pwd for output_path is website_bodytext_scraper/, specify next level from there
-# OUTPUT_PATH = 'exports/test_oct_28'
-# Testing S3
+INPUT_PATH = '/home/ubuntu/form990_data/full_list/bodytext_inputs.csv'
 OUTPUT_PATH = 's3://non-profit-web-scraping-dev/tests/oct_28/'
-
 
 # Log level
 LOG_LEVEL = 'DEBUG'
-LOG_FILE = 'exports/logs/test_logs_oct28.txt'
+LOG_FILE = 'exports/logs/logs.txt'
 
 # AWS CREDENTIALS
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']

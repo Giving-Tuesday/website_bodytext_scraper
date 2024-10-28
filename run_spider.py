@@ -10,13 +10,16 @@ def run_crawler():
 
   # # Define output directory as passed from arg or default
   output_directory = settings.get('OUTPUT_PATH')
+  # print(output_directory)
   output_path = os.path.join(output_directory, 'stripe_%(time)s.csv')
 
   # Add FEEDS to project settings
   settings.set('FEEDS', {
         output_path: {
             'format': 'csv',
+            # NOTE: S3 supports overwrites only, cannot append
             'overwrite': True,
+            # 'overwrite': False,
         }
     })
   
