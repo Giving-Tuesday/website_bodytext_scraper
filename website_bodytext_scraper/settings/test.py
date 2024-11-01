@@ -16,10 +16,10 @@ OUTPUT_PATH = 's3://non-profit-web-scraping-dev/tests/oct_28/'
 LOG_LEVEL = 'DEBUG'
 LOG_FILE = 'exports/logs/test_logs_oct28.txt'
 
-# AWS CREDENTIALS
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY =  os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_SESSION_TOKEN = os.environ['AWS_SESSION_TOKEN']
+# AWS CREDENTIALS: NOTE: Not required if running on EC2!
+#AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#AWS_SECRET_ACCESS_KEY =  os.environ['AWS_SECRET_ACCESS_KEY']
+#AWS_SESSION_TOKEN = os.environ['AWS_SESSION_TOKEN']
 
 # Configuring closeSpider
 EXTENSIONS = {
