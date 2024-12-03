@@ -74,8 +74,8 @@ The Stripe spider is currently deployed to an EC2 instance and is configured to 
 
 **Cron job**: crontab -e
 * The cron job currently configured on the machine is:
-`0 */6 * * * cd /home/ubuntu/website_bodytext_scraper && SCRAPY_PROJECT=ec2 venv/bin/python run_spider.py >> /home/ubuntu/cron.log 2>&1 `
-* This triggers the Stripe spider every 6 hours using the ec2 settings, and outputs to cron.log
+`0 */2 * * * cd /home/ubuntu/website_bodytext_scraper && SCRAPY_PROJECT=ec2 venv/bin/python run_spider.py >> /home/ubuntu/cron.log 2>&1 `
+* This triggers the Stripe spider every 2 hours using the ec2 settings, and outputs to cron.log
 
 **Logs**
 There are two kinds of logs to monitor when the EC2 instance is running:
