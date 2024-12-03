@@ -11,6 +11,17 @@ OUTPUT_PATH = 's3://non-profit-web-scraping-dev/runs/oct_31_2024/'
 # Log level
 LOG_LEVEL = 'DEBUG'
 LOG_FILE = 'exports/logs/logs.txt'
+# Enabling persistent jobs queue for scheduler
+JOBDIR = 'crawls/run_spider-ec2'
+
+# Configuring memory usage extension and memory debugger extensions
+MEMDEBUG_ENABLED = True
+MEMDEBUG_NOTIFY = ['sana@givingtuesday.org']
+
+MEMUSAGE_ENABLED = True
+MEMUSAGE_NOTIFY_MAIL = ['sana@givingtuesday.org']
+MEMUSAGE_WARNING_MB = 4000
+MEMUSAGE_LIMIT_MB = 5000
 
 # Configuring closeSpider
 EXTENSIONS = {
