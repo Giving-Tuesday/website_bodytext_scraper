@@ -56,7 +56,42 @@ The scraper is currently being updated to use run_spider.py as an entrypoint to 
 
 `SCRAPY_PROJECT=local python run_spider.py`
 
+The Stripe spider is currently deployed to an EC2 instance and is configured to run every 6 hours. The settings are configured in two places:
+* A custom EC2 settings file where a timeout param is set to 5 hours 55 minutes
+* A cron job on the EC2 instance where the spider is restarted every 6 hours
+
+**Custom EC2 settings**: /website_bodytext_scraper/website_bodytext_scraper/settings/ec2.py
+* Inherits all default settings from "base" settings file
+* Inputs and ouputs are set here 
+	* Inputs come from the form990_data folder on the instance
+	* Output goes to and S3 directory
+		* Note: it is recommended to start a new directory for each dedicated run so all CSVs generated for that run are stored together
+* Log settings are set to "DEBUG" for full visibility and exported to a given path
+* The spider timeout is configured by enabling the extenstion (by setting to 500) and setting the `CLOSESPIDER_TIMEOUT` param to the number of seconds before timing out
+	* This triggers a graceful shutdown of the spider os the output can be periodically exported 
+* Note that it is not required to configure AWS credentials here as they are inherently passed to the EC2 instance and periodically update
+* Note that for testing, there is a different settings file called test.py that is configured for small test runs 
+
+**Cron job**: crontab -e
+* The cron job currently configured on the machine is:
+`0 */2 * * * cd /home/ubuntu/website_bodytext_scraper && SCRAPY_PROJECT=ec2 venv/bin/python run_spider.py >> /home/ubuntu/cron.log 2>&1 `
+* This triggers the Stripe spider every 2 hours using the ec2 settings, and outputs to cron.log
+
+**Logs**
+There are two kinds of logs to monitor when the EC2 instance is running:
+* `/website_bodytext_scraper/exports/logs/logs.txt` : All output from the spider at the DEBUG level
+* `cron.log`: For any output from triggering run_spider, which when successfully run produces a timestamp of the last run triggered, otherwise shows the error
+
+**Importance of http_cache**
+* It is very important to keep the http-cache subdirectory under the hidden .scrapy folder in the website_bodytext_scraper directory, as this contains copies of all the web pages scraped so the scraper can easily be re-run if changes are made 
+* The storage of the EC2 instance is optimized to hold this, but storage on the machine should be periodically monitored to ensure it doesn't run out of space
+
 ----------------------------------------------------
+
+###  DEPRECATED: Proceed with caution
+
+_The following instructions may be out of date, the latest documentation is for the EC2 instance config above_
+
 
 Two steps must be performed for best results. First, the list of URLs provided is checked to ensure a successful scrape can be performed on the website by checking for a 200 HTTP status code, and rendering a report on the responses for all URLs tried. This step renders a new list of websites with a high chance of success. In the second step, this new list is used to perform the scrape and process the data into a final CSV. 
 
